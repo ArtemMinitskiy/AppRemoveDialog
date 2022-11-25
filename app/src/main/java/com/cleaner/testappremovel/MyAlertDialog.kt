@@ -4,33 +4,30 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
-class MyAlertDialog: Activity() {
-    var appName = ""
+class MyAlertDialog : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        appName = intent.getStringExtra("AppName")!!
-
+        Log.i("MyLog", "MyAlertDialog onCreate")
         showDeleteDialog()
     }
 
     @SuppressLint("SetTextI18n")
     private fun showDeleteDialog() {
+        Log.i("MyLog", "MyAlertDialog showDeleteDialog")
         val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.MyAlertDialog)
         val viewGroup = findViewById<ViewGroup>(R.id.content)
 
         val dialogView: View = LayoutInflater.from(this).inflate(R.layout.popup_dialog, viewGroup, false)
         builder.setView(dialogView)
         val alertDialog: androidx.appcompat.app.AlertDialog = builder.create()
-        val uninstallText = dialogView.findViewById(R.id.uninstallText) as TextView
-        uninstallText.text = "Uninstalled $appName"
         val cleanMbText = dialogView.findViewById(R.id.cleanMbText) as TextView
         cleanMbText.text = "${(3..7).random()} Mb left. Tap to clean"
         val imageViewClose = dialogView.findViewById(R.id.imageViewClose) as ImageView
